@@ -2,32 +2,37 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Skoden — Layout Lens</title>
 <style>
-  body { margin: 0; overflow: hidden; background: #000; }
-
+  :root { --bg:#000; --toolbar-bg: rgba(255,255,255,0.95); }
+  html,body { height:100%; margin:0; background:var(--bg); }
   #video, #canvas {
-    position: absolute;
-    top: 0; left: 0;
-    width: 100vw; height: 100vh;
-    object-fit: cover;
+    position: absolute; top:0; left:0;
+    width:100vw; height:100vh; object-fit:cover;
   }
 
+  /* toolbar */
   #toolbar {
-    position: fixed;
-    bottom: 10px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 10px;
+    position: fixed; left:50%; transform:translateX(-50%);
+    bottom:12px; display:flex; gap:8px; z-index:40;
+  }
+  .btn {
+    background:var(--toolbar-bg); border-radius:8px; padding:8px 12px;
+    border:none; font-size:15px; cursor:pointer;
+    box-shadow:0 2px 6px rgba(0,0,0,0.2);
+  }
+  .btn.active { background:#222; color:#fff; }
+  .btn.locked { background:#666; color:#fff; }
+
+  /* small info badge top-left */
+  #modeBadge {
+    position:fixed; left:10px; top:10px; z-index:40;
+    background:rgba(255,255,255,0.9); padding:6px 10px; border-radius:6px;
+    font-size:13px;
   }
 
-  #toolbar button {
-    padding: 10px 16px;
-    font-size: 16px;
-    border: none;
-    background: white;
-    border-radius: 6px;
-  }
+  /* selected line indicator */
+  canvas { touch-action: none; }
 </style>
 </head>
 <body>
@@ -35,10 +40,13 @@
 <video id="video" autoplay playsinline></video>
 <canvas id="canvas"></canvas>
 
+<div id="modeBadge">Mode: <span id="modeName">Dot</span> • Orientation: <span id="oriName">Vertical</span></div>
+
 <div id="toolbar">
-  <button id="dotBtn">Dot</button>
-  <button id="lineBtn">Line</button>
-  <button id="gridBtn">Perspective</button>
+  <button id="dotBtn" class="btn active">Dot</button>
+  <button id="lineBtn" class="btn">Line</button>
+  <button id="oriBtn" class="btn">Orient: V</button>
+  <button id="lockBtn" class="btn">Lock</button>
 </div>
 
 <script src="script.js"></script>
