@@ -3,12 +3,30 @@
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-  body { margin: 0; overflow: hidden; }
+  body { margin: 0; overflow: hidden; background: #000; }
+
   #video, #canvas {
     position: absolute;
     top: 0; left: 0;
     width: 100vw; height: 100vh;
     object-fit: cover;
+  }
+
+  #toolbar {
+    position: fixed;
+    bottom: 10px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 10px;
+  }
+
+  #toolbar button {
+    padding: 10px 16px;
+    font-size: 16px;
+    border: none;
+    background: white;
+    border-radius: 6px;
   }
 </style>
 </head>
@@ -16,6 +34,12 @@
 
 <video id="video" autoplay playsinline></video>
 <canvas id="canvas"></canvas>
+
+<div id="toolbar">
+  <button id="dotBtn">Dot</button>
+  <button id="lineBtn">Line</button>
+  <button id="gridBtn">Perspective</button>
+</div>
 
 <script src="script.js"></script>
 </body>
